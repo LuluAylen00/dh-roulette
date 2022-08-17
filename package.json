@@ -1,0 +1,31 @@
+{
+  "name": "csv",
+  "version": "1.0.0",
+  "description": "Proyecto de prueba para convertir un .csv en json y enviarlo a una ruleta para dinámicas en el aula",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon src/index.js -e js,mjs,json,ejs,css",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuluAylen00/pokemart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuluAylen00/pokemart/issues"
+  },
+  "homepage": "https://github.com/LuluAylen00/pokemart#readme",
+  "dependencies": {
+    "convert-csv-to-json": "^1.3.3",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "simple-excel-to-json": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

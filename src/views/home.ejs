@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <title>Ruleta</title>
+</head>
+<body>
+    <h2>Lista</h2>
+    <form action="/roulette" method="post">
+        <button type="submit">Armar la ruleta!</button>
+        <% for( let i = 0; i < locals.data.length; i++ ) { %>
+            <input class="negInput" type="radio" name="<%= locals.data[i].id %>xyact" id="neg<%= locals.data[i].id %>" value="false">
+            <section class="li-<%= locals.data[i].id %>">
+                <input class="affInput" type="radio" name="<%= locals.data[i].id %>xyact" id="aff<%= locals.data[i].id %>" value="true" checked>
+                <input type="hidden" name="<%= locals.data[i].id %>xyid" value="<%= locals.data[i].id %>">
+                <input type="hidden" name="<%= locals.data[i].id %>xyname" value="<%= locals.data[i].name %>">
+                <h3><%= locals.data[i].name %></h3>
+                <label class="aff" for="aff<%= locals.data[i].id %>">Participa</label>
+                <label class="neg" for="neg<%= locals.data[i].id %>">No participa</label>
+            </section>
+        <% } %>
+    </form>
+</body>
+</html>

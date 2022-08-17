@@ -1,0 +1,43 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+input[type="radio"] {
+    display: none;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.aff, .neg {
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid;
+    margin: 10px;
+    opacity: 0.4;
+    color: snow;
+    font-weight: 600;
+}
+.aff {
+    background-color: #1CAF9A;
+    border-color: #17a08c;
+}
+
+.neg {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+input[type="radio"].negInput:checked + section {
+    order: 2;
+}
+
+input[type="radio"].negInput:checked + section label.neg, input[type="radio"].affInput:checked ~ label.aff {
+    opacity: 1;
+}
+
+section {
+    display: flex;
+    align-items: center;
+}
