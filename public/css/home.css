@@ -1,8 +1,11 @@
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
-input[type="radio"] {
+h3 {
+    width: 20vw;
+    text-align: center;
+}
+input[type="checkbox"] {
     display: none;
 }
 form {
@@ -29,11 +32,11 @@ form {
     border-color: #d43f3a;
 }
 
-input[type="radio"].negInput:checked + section {
+input[type="checkbox"]:not(:checked) + section {
     order: 2;
 }
 
-input[type="radio"].negInput:checked + section label.neg, input[type="radio"].affInput:checked ~ label.aff {
+input[type="checkbox"]:not(:checked) + section label.neg, input[type="checkbox"]:checked + section label.aff {
     opacity: 1;
 }
 

@@ -12,14 +12,13 @@
     <form action="/roulette" method="post">
         <button type="submit">Armar la ruleta!</button>
         <% for( let i = 0; i < locals.data.length; i++ ) { %>
-            <input class="negInput" type="radio" name="<%= locals.data[i].id %>xyact" id="neg<%= locals.data[i].id %>" value="false">
-            <section class="li-<%= locals.data[i].id %>">
-                <input class="affInput" type="radio" name="<%= locals.data[i].id %>xyact" id="aff<%= locals.data[i].id %>" value="true" checked>
-                <input type="hidden" name="<%= locals.data[i].id %>xyid" value="<%= locals.data[i].id %>">
-                <input type="hidden" name="<%= locals.data[i].id %>xyname" value="<%= locals.data[i].name %>">
+            <% let id = locals.data[i].id %> 
+            <input type="hidden" name="id" value="<%= id %>">
+            <input type="checkbox" name="status" id="<%= id %>" value="active" checked>
+            <section>
                 <h3><%= locals.data[i].name %></h3>
-                <label class="aff" for="aff<%= locals.data[i].id %>">Participa</label>
-                <label class="neg" for="neg<%= locals.data[i].id %>">No participa</label>
+                <label class="aff" for="<%= id %>">Participa</label>
+                <label class="neg" for="<%= id %>">No participa</label>
             </section>
         <% } %>
     </form>
