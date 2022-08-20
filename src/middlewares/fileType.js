@@ -2,25 +2,40 @@ const path = require('path');
 const fs = require('fs');
 
 const fileType = function (req,res,next){
-    let file = process.env.DATA_FILE || null; // Recupera el archivo
-    file && file != "" ? res.locals.file = file : res.locals.file = "hojaSge.xls"
-    let pathA = path.resolve("src","data", file);
-    res.locals.path = pathA
+    let errors = 0;
+    let file = process.env.DATA_FILE || null; // Recupera el archivo del entorno
+    // Si no lo hay o está vacío, lo reemplaza con los datos de muestra, si hay, lo guardo en el entorno
+    file && file != "" ? req.src.filename = file : req.src.filename = "hojaSge.xls";
+    let pathA = path.resolve("src","data", file);  // Creo el path completo del archivo
 
-    if(!fs.existsSync(pathA)){
-        console.log("Falla al cargar el archivo, regresando al estado de prueba");
-        res.locals.file = "hojaSge.xls";
+    // Si no existe, la aplicación vuelve al estado de muestra
+    if(!fs.existsSync(pathA)){ 
+        // Mensaje en consola
+        if (errors == 0) {
+            console.log("Falla al cargar el archivo, regresando al estado de prueba")
+            errors++
+        }
+        req.src.filename = "hojaSge.xls"; // Reestablece el archivo de prueba
+        pathA = path.resolve("src","data", req.src.filename);  // Creo el path completo actualizado
     }
+    req.src.path = pathA // Guardo el path en el entorno
 
-    
+    // Hora de averiguar su formato, como información para el modelo
     let ext = file.split(".").pop();
+    if (ext == "csv") { // Si es un archivo CSV, proviene de Google Speadsheets
+        req.src.column = "Nombre"; // La columna donde se encuentran los nombres allí es "Nombre"
+        req.src.origin = "Google"; // Y especifico su origen
+    } else if (ext == "xls") { // Si no lo es, es un XLS proviniente de SGE
+        req.src.column = "Alumno"; // La columna donde se encuentran los nombres allí es "Nombre"
+        req.src.origin = "SGE"; // Y especifico su origen
+    } else { // Si no es ninguno de los dos, devuelve un error
+        res.send("Formato de archivo no válido, solo están admitidos los formatos .xls y .csv");
+    }
+    req.src.EXT = ext; // Guardo la extensión en el entorno
     
-    ext == "csv" ? res.locals.column = "Nombre" : res.locals.column = "Alumno"
-
-    ext != "csv" && ext != "xls" ? res.send("Formato de archivo no válido, solo están admitidos los formatos .xls y .csv") : ""
-    res.locals.ext = ext
-
+    errors == 0 ? console.log("Iniciando el proyecto con el archivo de "+ req.src.origin + " ("+req.src.filename+").") : "";
+    
     next();
 }
 
-module.exports = fileType
+module.exports = fileType;

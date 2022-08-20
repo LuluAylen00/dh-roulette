@@ -13,12 +13,13 @@
         <button type="submit">Armar la ruleta!</button>
         <% for( let i = 0; i < locals.data.length; i++ ) { %>
             <% let id = locals.data[i].id %> 
-            <input type="hidden" name="id" value="<%= id %>">
-            <input type="checkbox" name="status" id="<%= id %>" value="active" checked>
             <section>
                 <h3><%= locals.data[i].name %></h3>
-                <label class="aff" for="<%= id %>">Participa</label>
-                <label class="neg" for="<%= id %>">No participa</label>
+                <input type="checkbox" class="checkbox" name="statusfor<%= id %>" id="<%= id %>" value="active" checked>
+                <div>
+                    <label class="neg" for="<%= id %>">No participa</label>
+                    <label class="aff" for="<%= id %>">Participa</label>
+                </div>
             </section>
         <% } %>
     </form>

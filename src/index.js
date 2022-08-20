@@ -9,7 +9,7 @@ app.listen(port);
 const {config} = require('dotenv')
 config()
 
-app.use(express.urlencoded({extended:false})); 
+app.use(express.urlencoded({extended:true})); 
 app.use(express.json())
 
 const public = resolve(__dirname, '../public');

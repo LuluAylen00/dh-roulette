@@ -2,7 +2,7 @@ body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 h3 {
-    width: 20vw;
+    width: 30vw;
     text-align: center;
 }
 input[type="checkbox"] {
@@ -13,14 +13,29 @@ form {
     flex-direction: column;
 }
 
+form section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+}
+
+form section div {
+    position: relative;
+}
+
 .aff, .neg {
     padding: 15px;
     border-radius: 15px;
     border: 1px solid;
-    margin: 10px;
-    opacity: 0.4;
+    opacity: 0;
     color: snow;
     font-weight: 600;
+    width: 15vw;
+    position: absolute;
+    left: 0;
+    top: -30px;
+    text-align: center;
 }
 .aff {
     background-color: #1CAF9A;
@@ -30,13 +45,10 @@ form {
 .neg {
     background-color: #d9534f;
     border-color: #d43f3a;
+    
 }
 
-input[type="checkbox"]:not(:checked) + section {
-    order: 2;
-}
-
-input[type="checkbox"]:not(:checked) + section label.neg, input[type="checkbox"]:checked + section label.aff {
+input[type="checkbox"]:not(:checked) + div label.neg, input[type="checkbox"]:checked + div label.aff {
     opacity: 1;
 }
 
