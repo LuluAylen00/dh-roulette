@@ -2,10 +2,11 @@
   "name": "csv",
   "version": "1.0.0",
   "description": "Proyecto de prueba para convertir un .csv en json y enviarlo a una ruleta para dinámicas en el aula",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "nodemon src/index.js -e js,mjs,json,ejs,css",
-    "start": "node src/index.js"
+    "test": "tsc && nodemon src/index.js -e js,mjs,json,ejs,css,ts",
+    "start": "tsc && node src/index.ts",
+    "tsc:w": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "simple-excel-to-json": "^2.3.0"
   },
   "devDependencies": {
+    "@types/node": "^18.7.8",
     "nodemon": "^2.0.19"
   }
 }

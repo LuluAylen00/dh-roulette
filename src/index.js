@@ -1,26 +1,22 @@
-const express = require('express');
-const {join, resolve} = require('path');
-const app = express();
-
-const port = 3000;
+"use strict";
+exports.__esModule = true;
+var express = require("express");
+var path_1 = require("path");
+var app = express();
+var port = 3000;
 console.log("Servidor corriendo en el puerto " + port);
 app.listen(port);
-
-const {config} = require('dotenv')
-config()
-
-app.use(express.urlencoded({extended:true})); 
-app.use(express.json())
-
-const public = resolve(__dirname, '../public');
-const static = express.static(public);
-app.use(static);
-
-app.set ('views', resolve(__dirname, 'views'));
+var config = require('dotenv').config;
+config();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+var publicPath = (0, path_1.resolve)(__dirname, '../public');
+var staticPath = express.static(publicPath);
+app.use(staticPath);
+app.set('views', (0, path_1.resolve)(__dirname, 'views'));
 app.set("view engine", "ejs");
-
-const fileType = require("./middlewares/fileType")
-app.use(fileType);
-
-const indexRoutes = require('./routes/indexRoutes');
-app.use(indexRoutes);
+var fileType_1 = require("./middlewares/fileType");
+app.use(fileType_1.fileType);
+var indexRoutes_1 = require("./routes/indexRoutes");
+app.use(indexRoutes_1.indexRoutes);
+//# sourceMappingURL=index.js.map
