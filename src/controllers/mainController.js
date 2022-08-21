@@ -1,10 +1,18 @@
 "use strict";
 exports.__esModule = true;
 exports.mainController = void 0;
-//import { shuffle, processBody, allToJson, allProcess, allParser /* groupFinder */ } from "../models/mainModel"
 var mainModel_1 = require("../models/mainModel");
 var mainController = {
     index: function (req, res) {
+        var files = mainModel_1.model.allParser();
+        console.log(files);
+        res.send(files);
+        res.render('index', { files: files });
+    },
+    newList: function (req, res) {
+        var id = req.params.id;
+    },
+    list: function (req, res) {
         var src = req.src; // Guardo mi entorno en una variable que esté al alcance
         var data = [];
         var nuevo = mainModel_1.model.allToJson(src); // Convierto los datos a un array de objetos (le paso el entorno porque de ahí es donde el modelo sabe de que formato debe convertir)

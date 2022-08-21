@@ -1,35 +1,90 @@
 "use strict";
 exports.__esModule = true;
 exports.model = void 0;
-//const xlsParser = require("simple-excel-to-json"); // Requiero mi convertidor de xls a objeto
-//const csvToJson = require(); // Requiero mi convertidor de csv a objeto
-//const cleanse = require(); // Requiero un módulo propio que me ayude a limpiar algunas fallas del convertidor de csv
-var xlsParser = require("simple-excel-to-json");
-var csvToJson = require("convert-csv-to-json");
-var cleanse_1 = require("../modules/cleanse");
+var xlsParser = require("simple-excel-to-json"); // Requiero mi convertidor de xls a objeto
+var csvToJson = require("convert-csv-to-json"); // Requiero mi convertidor de csv a objeto
+var cleanse_1 = require("../modules/cleanse"); // Requiero un módulo propio que me ayude a limpiar algunas fallas del convertidor de csv
+var path = require("path");
+var fs = require("fs");
+var folder = path.resolve(__dirname, "../data/");
 var model = {
-    allToJson: function (locals) {
-        // Detecta el tipo de archivo y ejecuta el convertidor que corresponda
-        if (locals.ext == "csv") {
-            return (0, cleanse_1.cleanse)(csvToJson.fieldDelimiter(",").getJsonFromCsv(locals.path)); // El csv viene con problemas luego del convertidor, aquí limpio la sintaxis
-        }
-        else if (locals.ext == "xls") {
-            return xlsParser.parseXls2Json(locals.path).shift(); // Este convertidor crea un array de arrays, pero aunque hay uno solo dentro, me interesa el primero
-        }
+    fileLister: function () {
+        var fileArray = fs.readdirSync(folder).map(function (file) {
+            var obj = {
+                filename: "",
+                ext: ""
+            };
+            file ? (obj.ext = path.extname(file).slice(1)) : "";
+            if (obj.ext == "csv" || obj.ext == "xls") {
+                obj.filename = file;
+            }
+            return obj;
+        });
+        return fileArray;
     },
-    allProcess: function (data, column, ext) {
-        // Dependiendo del tipo de archivo, proceso los datos para dejar solo los nombres
-        if (ext == "xls") {
-            return data.map(function (a) { return (a[column].length > 0 ? a[column] : ""); });
-        }
-        else {
-            // Debido a que algunos registros puede que conserven líneas vacías, las filtramos
-            return data.map(function (a) {
-                return a.Estudiante.split(" ").shift() == "Alumno" ? a[column] : "";
-            });
-        }
+    allToJson: function () {
+        var files = model.fileLister();
+        var json = [];
+        files.forEach(function (file) {
+            var obj = {
+                data: [],
+                ext: file.ext // Almaceno la extensión para usarla mas adelante
+            };
+            // Detecta el tipo de archivo y ejecuta el convertidor que corresponda
+            if (file.ext == "csv") {
+                var partial = (0, cleanse_1.cleanse)(csvToJson.fieldDelimiter(",").getJsonFromCsv(path.resolve(folder, file.filename))); // El csv viene con problemas luego del convertidor, aquí limpio la sintaxis
+                obj.data = partial.map(function (a) { return a["Estudiante"].includes("Alumno") ? a.Nombre : ""; });
+            }
+            else if (file.ext == "xls") {
+                var partial = xlsParser.parseXls2Json(path.resolve(folder, file.filename)).shift(); // Este convertidor crea un array de arrays, pero aunque hay uno solo dentro, me interesa el primero
+                obj.data = partial.map(function (a) { return a.Alumno.length > 0 ? a.Alumno : ""; });
+            }
+            else {
+                obj.data.push("El archivo ha pasado un error");
+            }
+            json.push(obj);
+        });
+        return json;
     },
-    allParser: function (data, ext) {
+    allParser: function () {
+        var allToJson = model.allToJson();
+        var parser = [];
+        allToJson.forEach(function (file) {
+            var thisFile = [];
+            for (var i = 0; i < file.data.length; i++) {
+                var alumno = file.data[i];
+                var item = {
+                    id: i,
+                    name: ""
+                };
+                if (file.ext == "csv") {
+                    var separated = alumno.split(" ");
+                    if (separated.length == 2) {
+                        // Si solo hay dos palabras, sería "Nombre y Apellido", lo dejo igual
+                        item.name = separated[0] + " " + separated[1];
+                    }
+                    else if (separated.length >= 3) {
+                        // Si hay 3 o mas, conservo la primera y tercera palabra (la cual puede fallar a la hora de dejar un nombre coherente, pero suele ser eficaz)
+                        item.name = separated[0] + " " + separated[2];
+                    }
+                }
+                else if (file.ext == "xls") {
+                    var separated = alumno.split(", ");
+                    if (alumno != "") {
+                        item.name = separated[1].split(" ")[0] + " " + separated[0].split(" ")[0]; // Ocupo el primero de cada uno
+                    }
+                }
+                else {
+                    item.name = "Error";
+                }
+                ;
+                item.name != "" ? thisFile.push(item) : "";
+            }
+            parser.push(thisFile);
+        });
+        return parser;
+    },
+    allParsered: function (data, ext) {
         // Consigo el formato (inestable) de "Nombre y apellido" independientemente del tipo de formato inicial
         var newData = [];
         if (ext == "csv") {
@@ -55,7 +110,9 @@ var model = {
                 if (a != "") {
                     newData.push({
                         id: index,
-                        name: separated[1].split(" ")[0] + " " + separated[0].split(" ")[0] // Ocupo el primero de cada uno
+                        name: separated[1].split(" ")[0] +
+                            " " +
+                            separated[0].split(" ")[0]
                     });
                 }
             });
@@ -72,19 +129,22 @@ var model = {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
             // Y lo cambio por el elemento actual del index
-            _a = [array[randomIndex], array[currentIndex]], array[currentIndex] = _a[0], array[randomIndex] = _a[1];
+            _a = [
+                array[randomIndex],
+                array[currentIndex],
+            ], array[currentIndex] = _a[0], array[randomIndex] = _a[1];
         }
         return array;
     },
     all: function (locals) {
         // Función exclusiva para el modelo, traerá todos los alumnos y los procesará como el controlador
-        var nuevo = model.allToJson(locals);
-        var soloNombres = model.allProcess(nuevo, locals.column, locals.ext);
-        return model.allParser(soloNombres, locals.ext); // Retorna los nombres tal como el controlador los necesitaría
+        //let nuevo = model.allToJson(locals);
+        //let soloNombres = model.allProcess(nuevo, locals.column, locals.ext);
+        //return model.allParser(soloNombres, locals.ext); // Retorna los nombres tal como el controlador los necesitaría
     },
     one: function (id, locals) {
         // Función exclusiva para el modelo, buscará un alumno en particular
-        return model.all(locals).find(function (a) { return id == a.id; });
+        //return model.all(locals).find((a) => id == a.id);
     },
     processBody: function (data, locals) {
         // Se encarga de procesar el body para la ruleta
@@ -96,9 +156,8 @@ var model = {
         for (var i = 0; i < ids.length; i++) {
             var id = parseInt(ids[i].split("for")[1]);
             var a = model.one(id, locals); // Busco aquellos ids que me hayan llegado y pusheo el nombre correspondiente a mi array
-            array.push(a.name);
+            //array.push(a.name);
         }
-        ;
         return array;
     }
 };

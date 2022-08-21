@@ -1,8 +1,18 @@
-//import { shuffle, processBody, allToJson, allProcess, allParser /* groupFinder */ } from "../models/mainModel"
-import {model} from "../models/mainModel"
+import {model} from "../models/mainModel";
 
 let mainController = {
     index: (req, res) => { 
+        let files = model.allParser();
+        console.log(files);
+        res.send(files);
+        
+        res.render('index', { files })
+    },
+    newList: (req, res) => {
+        let id = req.params.id;
+
+    },
+    list: (req, res) => {
         let src = req.src; // Guardo mi entorno en una variable que esté al alcance
         let data = [];
         let nuevo = model.allToJson(src); // Convierto los datos a un array de objetos (le paso el entorno porque de ahí es donde el modelo sabe de que formato debe convertir)
