@@ -4,7 +4,7 @@ import {mainController} from '../controllers/mainController'
 
 app.get('/', mainController.index)
 
-app.get('/list/:comId', mainController.newList)
+app.get('/list/:id', mainController.newList)
 
 app.get('/list/', mainController.list)
 

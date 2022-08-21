@@ -9,26 +9,40 @@ var fs = require("fs");
 var folder = path.resolve(__dirname, "../data/");
 var model = {
     fileLister: function () {
-        var fileArray = fs.readdirSync(folder).map(function (file) {
+        var toSend = [];
+        var fileArray = fs.readdirSync(folder).map(function (file, index) {
             var obj = {
                 filename: "",
-                ext: ""
+                ext: "",
+                name: file.replace(/\.[^/.]+$/, ""),
+                id: index
             };
             file ? (obj.ext = path.extname(file).slice(1)) : "";
             if (obj.ext == "csv" || obj.ext == "xls") {
                 obj.filename = file;
             }
+            ;
             return obj;
         });
-        return fileArray;
+        fileArray.forEach(function (file, index) {
+            var id = 0;
+            if (file.filename != "") {
+                file.id = toSend.length;
+                toSend.push(file);
+            }
+            ;
+        });
+        return toSend;
     },
     allToJson: function () {
         var files = model.fileLister();
         var json = [];
-        files.forEach(function (file) {
+        files.forEach(function (file, index) {
             var obj = {
                 data: [],
-                ext: file.ext // Almaceno la extensión para usarla mas adelante
+                ext: file.ext,
+                id: files[index].id,
+                name: files[index].name
             };
             // Detecta el tipo de archivo y ejecuta el convertidor que corresponda
             if (file.ext == "csv") {
@@ -40,17 +54,24 @@ var model = {
                 obj.data = partial.map(function (a) { return a.Alumno.length > 0 ? a.Alumno : ""; });
             }
             else {
-                obj.data.push("El archivo ha pasado un error");
+                obj.ext = "Error";
             }
-            json.push(obj);
+            obj.ext != "Error" ? json.push(obj) : "";
         });
         return json;
     },
     allParser: function () {
+        // Consigo el formato (inestable) de "Nombre y apellido" independientemente del tipo de formato inicial
         var allToJson = model.allToJson();
         var parser = [];
-        allToJson.forEach(function (file) {
+        allToJson.forEach(function (file, index) {
             var thisFile = [];
+            var obj = {
+                data: [],
+                id: allToJson[index].id,
+                com: "",
+                name: allToJson[index].name
+            };
             for (var i = 0; i < file.data.length; i++) {
                 var alumno = file.data[i];
                 var item = {
@@ -58,7 +79,8 @@ var model = {
                     name: ""
                 };
                 if (file.ext == "csv") {
-                    var separated = alumno.split(" ");
+                    // En la rúbrica, los nombres están con el formato de "Nombre1 Nombre2 Apellido1 Apellido2"
+                    var separated = alumno.split(" "); // Obtengo el array de todas las palabras que conformen el nombre
                     if (separated.length == 2) {
                         // Si solo hay dos palabras, sería "Nombre y Apellido", lo dejo igual
                         item.name = separated[0] + " " + separated[1];
@@ -69,55 +91,72 @@ var model = {
                     }
                 }
                 else if (file.ext == "xls") {
+                    // Esta separación es mas sencilla, Apellidos y nombres están separados por una coma
                     var separated = alumno.split(", ");
                     if (alumno != "") {
-                        item.name = separated[1].split(" ")[0] + " " + separated[0].split(" ")[0]; // Ocupo el primero de cada uno
+                        item.name = separated[1].split(" ")[0] + " " + separated[0].split(" ")[0]; // Y ocupo el primero de cada uno
                     }
                 }
                 else {
                     item.name = "Error";
                 }
                 ;
-                item.name != "" ? thisFile.push(item) : "";
+                item.name != "Error" ? obj.data.push(item) : "";
             }
-            parser.push(thisFile);
+            parser.push(obj);
         });
         return parser;
     },
-    allParsered: function (data, ext) {
-        // Consigo el formato (inestable) de "Nombre y apellido" independientemente del tipo de formato inicial
-        var newData = [];
-        if (ext == "csv") {
-            // En la rúbrica, los nombres están con el formato de "Nombre1 Nombre2 Apellido1 Apellido2"
-            data.map(function (a, index) {
-                var separated = a.split(" "); // Obtengo el array de todas las palabras que conformen el nombre
-                var item = { id: index, name: "" };
-                if (separated.length == 2) {
-                    // Si solo hay dos palabras, sería "Nombre y Apellido", lo dejo igual
-                    item.name = separated[0] + " " + separated[1];
+    findFile: function (id) {
+        var allParser = model.allParser();
+        return allParser.find(function (file) { return file.id == id; });
+    },
+    jsonLister: function () {
+        var toSend = [];
+        var fileArray = fs.readdirSync(folder).map(function (file, index) {
+            var fileExt;
+            var filename;
+            file ? (fileExt = path.extname(file).slice(1)) : "";
+            if (fileExt == "json") {
+                filename = file;
+            }
+            ;
+            return filename;
+        });
+        if (fileArray.length > 0) {
+            fileArray.forEach(function (file, index) {
+                if (file) {
+                    var json = JSON.parse(fs.readFileSync(path.resolve(folder, file)));
+                    toSend.push(json);
                 }
-                else if (separated.length >= 3) {
-                    // Si hay 3 o mas, conservo la primera y tercera palabra (la cual puede fallar a la hora de dejar un nombre coherente, pero suele ser eficaz)
-                    item.name = separated[0] + " " + separated[2];
-                }
-                newData.push(item);
+                ;
             });
+        }
+        return toSend;
+    },
+    findJson: function (id) {
+        var list = model.jsonLister();
+        return list.find(function (j) { return j.id == id; });
+    },
+    saveJson: function (index, com) {
+        var thisOne = model.findFile(index);
+        var newObj = {
+            data: thisOne.data,
+            id: model.jsonLister().length,
+            com: com ? com : ""
+        };
+        var thisPath = path.resolve(folder, thisOne.name + ".json");
+        if (!fs.existsSync(thisPath)) {
+            fs.writeFileSync(thisPath, JSON.stringify(newObj, null, 2));
+            return newObj;
         }
         else {
-            data.map(function (a, index) {
-                // En el SGE, los nombres están con el formato de "Apellido1 Apellido2, Nombre1 Nombre2"
-                var separated = a.split(", "); // Obtengo su información separada, nombres por un lado y apellidos por el otro
-                if (a != "") {
-                    newData.push({
-                        id: index,
-                        name: separated[1].split(" ")[0] +
-                            " " +
-                            separated[0].split(" ")[0]
-                    });
-                }
-            });
+            console.log("El archivo ya existe, no se puede sobreescribir");
+            console.log("Iniciando aplicación");
+            var already = JSON.parse(fs.readFileSync(thisPath));
+            return model.findJson(already.id);
         }
-        return newData; // Retorno el array con los nombres actualizados
+        ;
     },
     shuffle: function (array) {
         var _a;

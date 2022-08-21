@@ -2,23 +2,24 @@ import {model} from "../models/mainModel";
 
 let mainController = {
     index: (req, res) => { 
-        let files = model.allParser();
-        console.log(files);
-        res.send(files);
+        let files = model.fileLister();
+        console.log(model.jsonLister());
+        
         
         res.render('index', { files })
     },
     newList: (req, res) => {
         let id = req.params.id;
-
+        let thisOne = model.saveJson(id);
+        res.send(thisOne);
     },
     list: (req, res) => {
         let src = req.src; // Guardo mi entorno en una variable que esté al alcance
         let data = [];
-        let nuevo = model.allToJson(src); // Convierto los datos a un array de objetos (le paso el entorno porque de ahí es donde el modelo sabe de que formato debe convertir)
+        //let nuevo = model.allToJson(src); // Convierto los datos a un array de objetos (le paso el entorno porque de ahí es donde el modelo sabe de que formato debe convertir)
         
-        let soloNombres = model.allProcess(nuevo, src.column, src.ext); // Proceso los objetos para que solo contengan el nombre y para arreglar otros inconvenientes
-        data = model.allParser(soloNombres, src.ext); // Les doy a esos objetos el formato que necesito usar
+        //let soloNombres = model.allProcess(nuevo, src.column, src.ext); // Proceso los objetos para que solo contengan el nombre y para arreglar otros inconvenientes
+        //data = model.allParser(soloNombres, src.ext); // Les doy a esos objetos el formato que necesito usar
         return res.render("home", { data }); // Renderizo el formulario inicial con el array ya procesado
     },
     secondRoulette: function(req, res) {
