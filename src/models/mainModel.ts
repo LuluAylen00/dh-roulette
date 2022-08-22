@@ -133,7 +133,7 @@ const model = {
     },
     findByCom: function(com){
         let list = model.jsonLister();
-        return list.filter(j => j.com == com);
+        return list.filter(j => j.com.includes(com));
     },
     saveJson: function(index, com? : string){
         let thisOne = model.findFile(index);

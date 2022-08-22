@@ -148,7 +148,7 @@ var model = {
     },
     findByCom: function (com) {
         var list = model.jsonLister();
-        return list.filter(function (j) { return j.com == com; });
+        return list.filter(function (j) { return j.com.includes(com); });
     },
     saveJson: function (index, com) {
         var thisOne = model.findFile(index);
