@@ -6,11 +6,11 @@ var mainController = {
     index: function (req, res) {
         res.render('homepage');
     },
-    convert: function (req, res) {
+    toConvertList: function (req, res) {
         var files = mainModel_1.model.fileLister();
         res.render('toConvert', { files: files });
     },
-    "new": function (req, res) {
+    uploadTable: function (req, res) {
         console.log("Fichero", req.file.filename, "subido");
         res.redirect('/convert');
     },
@@ -28,7 +28,7 @@ var mainController = {
             res.send("No hay documentos JSON");
         }
     },
-    view: function (req, res) {
+    jsonDetail: function (req, res) {
         var data = mainModel_1.model.readJson(req.params.id);
         return res.render("takeList", { data: data });
     },
@@ -42,18 +42,25 @@ var mainController = {
         var edit = mainModel_1.model.assignCom(req.params.id, "undefined");
         return res.redirect('/view/' + req.params.id);
     },
-    list: function (req, res) {
-        var src = req.src; // Guardo mi entorno en una variable que esté al alcance
-        var data = [];
-        //let nuevo = model.allToJson(src); // Convierto los datos a un array de objetos (le paso el entorno porque de ahí es donde el modelo sabe de que formato debe convertir)
-        //let soloNombres = model.allProcess(nuevo, src.column, src.ext); // Proceso los objetos para que solo contengan el nombre y para arreglar otros inconvenientes
-        //data = model.allParser(soloNombres, src.ext); // Les doy a esos objetos el formato que necesito usar
-        return res.render("takeList", { data: data }); // Renderizo el formulario inicial con el array ya procesado
-    },
-    secondRoulette: function (req, res) {
+    roulette: function (req, res) {
         var data = mainModel_1.model.processBody(req.body); // Recibo el dato de los participantes de la ruleta y los guardo
         data = mainModel_1.model.shuffle(data); // Los mezclo
         return res.render("roulette", { myData: data }); // Y renderizo la ruleta, la cual posee otra función que da aleatoriedad al listado
+    },
+    comList: function (req, res) {
+        var json = mainModel_1.model.jsonLister();
+        var query = req.query.com ? req.query.com : "";
+        if (req.query.com) {
+            json = mainModel_1.model.findByCom(query);
+        }
+        ;
+        if (json.length > 0) {
+            res.render('listByCom', { data: json, query: query });
+        }
+        else {
+            res.send("No hay documentos JSON");
+        }
+        ;
     },
     groupsIndex: function (req, res) {
         var groups;

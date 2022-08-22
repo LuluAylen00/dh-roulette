@@ -146,6 +146,10 @@ var model = {
         var list = model.jsonLister();
         return list.find(function (j) { return j.id == id; });
     },
+    findByCom: function (com) {
+        var list = model.jsonLister();
+        return list.filter(function (j) { return j.com == com; });
+    },
     saveJson: function (index, com) {
         var thisOne = model.findFile(index);
         var newObj = {
@@ -203,16 +207,15 @@ var model = {
     },
     processBody: function (data) {
         // Se encarga de procesar el body para la ruleta
-        var ids = Object.keys(data); // Las claves se llaman "statusfor" + id, por ende, solo me interesan las propiedades del objeto que viene
-        ids.shift();
-        var json = model.findJson(data.id).data;
-        var list = json.data;
-        var array = [];
+        var ids = Object.keys(data); // Las claves se llaman "statusfor" + id, por ende, solo me interesan las propiedades del objeto
+        ids.shift(); // El primer dato es el id del json para buscarlo, lo elimino
+        var json = model.findJson(data.id).data; // Busco el json específico para traer la lista de alumnos
+        var array = []; // Acumulador
         ids.forEach(function (a, i) {
+            // Aquellos id que hayan llegado son los que estarán presentes, por lo que son los que debo buscar en el array de alumnos
             var id = parseInt(ids[i].split("for")[1]);
             array.push(json.find(function (al) { return al.id == id; }).name);
         });
-        // Las claves se llaman "statusfor" + id, por ende, solo me interesan las propiedades del objeto que viene
         return array;
     }
 };

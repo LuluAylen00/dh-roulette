@@ -19,12 +19,13 @@ var dest = multer.diskStorage({
 });
 var upload = multer({ storage: dest });
 app.get('/', mainController_1.mainController.index);
-app.get('/convert', mainController_1.mainController.convert);
+app.get('/convert', mainController_1.mainController.toConvertList);
+app.post('/new', [upload.single('upload')], mainController_1.mainController.uploadTable);
 app.get('/convert/:id', mainController_1.mainController.convertThis);
-app.post('/new', [upload.single('upload')], mainController_1.mainController["new"]);
 app.get('/list', mainController_1.mainController.jsonList);
-app.get('/view/:id', mainController_1.mainController.view);
+app.get('/view/:id', mainController_1.mainController.jsonDetail);
 app.post('/com/:id', mainController_1.mainController.assignCom);
 app.post('/delcom/:id', mainController_1.mainController.unassignCom);
-app.post('/roulette', mainController_1.mainController.secondRoulette);
+app.post('/roulette', mainController_1.mainController.roulette);
+app.get('/listByCom', mainController_1.mainController.comList);
 //# sourceMappingURL=indexRoutes.js.map

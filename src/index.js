@@ -15,8 +15,6 @@ var staticPath = express.static(publicPath);
 app.use(staticPath);
 app.set('views', (0, path_1.resolve)(__dirname, 'views'));
 app.set("view engine", "ejs");
-var fileType_1 = require("./middlewares/fileType");
-app.use(fileType_1.fileType);
 var indexRoutes_1 = require("./routes/indexRoutes");
 app.use(indexRoutes_1.indexRoutes);
 //# sourceMappingURL=index.js.map

@@ -19,8 +19,5 @@ app.use(staticPath);
 app.set ('views', resolve(__dirname, 'views'));
 app.set("view engine", "ejs");
 
-import {fileType} from "./middlewares/fileType";
-app.use(fileType);
-
 import {indexRoutes} from "./routes/indexRoutes"
 app.use(indexRoutes);
