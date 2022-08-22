@@ -1,8 +1,149 @@
-* {
-    box-sizing: border-box;
-    list-style-type: none;
+@import url("./partials/normalize.css");
+@import url("./partials/sidebar.css");
+
+#main-box {
+    width: 75vw;
+    overflow-y: scroll;
 }
 
-img {
-    width: 150px;
+#main-div-header {
+    height:15vh;
+    width:100%;
+    padding: 35px;
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    position: relative;
+}
+#new-form {
+    text-align: right;
+}
+input[type="file"] {
+    display: none;
+}
+#upload-label {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#file-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#file-list li.each-file {
+    background-color: snow;
+    border-radius: 10px;
+    width: 20vw;
+    margin: 7px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#file-list li.each-file a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#file-list li.each-file img.file-img {
+    width: 10vw;
+    margin: 10px;
+}
+#file-list li.each-file .file-title {
+    text-align: center;
+}
+
+
+/* ================================================================= */
+
+#com-form {
+    position: absolute;
+    right: 5vw;
+}
+
+main form#assists h3 {
+    width: 30vw;
+}
+input[type="checkbox"] {
+    display: none;
+}
+
+input[disabled] + button {
+    display: none;
+}
+form#assists {
+    display: flex;
+    flex-direction: column;
+}
+
+form#assists section {
+    margin: 10px;
+}
+
+form#assists section div.rel-div {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#list-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.each-a {
+    width: 45%;
+    height: 10vh;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.each-name {
+    width: 50%;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.aff, .neg {
+    opacity: 0;
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid;
+    color: snow;
+    width: 12vw;
+    
+}
+
+.aff {
+    background-color: #1CAF9A;
+    border-color: #17a08c;
+    position: absolute;
+    left: 0;
+    font-weight: 600;
+}
+
+.neg {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+input[type="checkbox"]:not(:checked) + div label.neg, input[type="checkbox"]:checked + div label.aff {
+    opacity: 1;
 }

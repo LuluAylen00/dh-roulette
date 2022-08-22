@@ -1,0 +1,27 @@
+main {
+    display: flex;
+    background-color: #e4e7ea;
+    min-height: 90vh;
+}
+
+header#topbar{
+    background-color: snow;
+    height: 10vh;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.766);
+}
+
+header#topbar img{
+    height: 50px;
+}
+
+#sidebar {
+    background-color: #1d2939;
+    color: #636e7b;
+    width: 25vw;
+    min-height: 90vh;
+    padding: 25px;
+}
+
+#sidebar ul li {
+    margin: 15px;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %> 
+<body>
+    <%- include("./partials/header.ejs") %> 
+    <main>
+        <%- include("./partials/sidebar.ejs") %> 
+        <div id="main-box">
+            <div id="main-div-header">
+                <h3>Listado de archivos para convertir</h3>
+                <form action="/new" method="POST" id="new-form" enctype="multipart/form-data">
+                    <input type="file" name="upload" id="upload" onChange="send()">
+                    <label id="upload-label" for="upload">Subir</label>
+                </form>
+            </div>
+            <ul id="file-list">
+                <% for( let i = 0; i < locals.files.length; i++ ) { %>
+                    <% let file = locals.files[i]; %>
+                    <li class="each-file">
+                        <% if (file.ext == "csv" || file.ext == "xls") { %>
+                            <a href="/convert/<%= file.id %>">
+                                <img class="file-img" src="/img/<%= file.ext %>.png" alt="<%= file.filename %>"> 
+                                <h3 class="file-title"><%= file.filename %></h3>
+                            </a>
+                        <% } %>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        <script>
+            function send(){
+                let form = document.getElementById("new-form");
+                return form.submit();
+            }
+        </script>
+    </main>
+</body>
+</html>

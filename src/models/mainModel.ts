@@ -21,7 +21,7 @@ const model = {
             };
             return obj;
         });
-        fileArray.forEach((file, index) => {
+        fileArray.slice().reverse().forEach((file, index) => {
             let id = 0
             if (file.filename != "") {
                 file.id = toSend.length;
@@ -81,13 +81,17 @@ const model = {
                     } else if (separated.length >= 3) {
                         // Si hay 3 o mas, conservo la primera y tercera palabra (la cual puede fallar a la hora de dejar un nombre coherente, pero suele ser eficaz)
                         item.name = separated[0] + " " + separated[2];
-                    }
+                    } else {
+                        item.name = "Error";
+                    };
                 } else if(file.ext == "xls"){
                     // Esta separación es mas sencilla, Apellidos y nombres están separados por una coma
                     let separated = alumno.split(", ");
                     if (alumno != "") {
                         item.name = separated[1].split(" ")[0] + " " + separated[0].split(" ")[0] // Y ocupo el primero de cada uno
-                    }
+                    }else {
+                        item.name = "Error";
+                    };
                 } else {
                     item.name = "Error";
                 };
@@ -132,7 +136,8 @@ const model = {
         let newObj = {
             data: thisOne.data,
             id: model.jsonLister().length,
-            com: com ? com : ""
+            com: "undefined",
+            name: thisOne.name
         };
         let thisPath = path.resolve(folder, thisOne.name+".json");
         if (!fs.existsSync(thisPath)) {
@@ -162,29 +167,36 @@ const model = {
         }
         return array;
     },
-    all: function (locals) {
-        // Función exclusiva para el modelo, traerá todos los alumnos y los procesará como el controlador
-        //let nuevo = model.allToJson(locals);
-        //let soloNombres = model.allProcess(nuevo, locals.column, locals.ext);
-        //return model.allParser(soloNombres, locals.ext); // Retorna los nombres tal como el controlador los necesitaría
+    readJson: (id) => {
+        let json = model.findJson(id);
+        let thisPath = path.resolve(folder, json.name+".json");
+        return JSON.parse(fs.readFileSync(thisPath));
     },
-    one: function (id, locals) {
-        // Función exclusiva para el modelo, buscará un alumno en particular
-        //return model.all(locals).find((a) => id == a.id);
+    assignCom: (id, com) => {
+        let json = model.findJson(id);
+        let thisPath = path.resolve(folder, json.name+".json");
+        let obj = JSON.parse(fs.readFileSync(thisPath));
+        obj.com = com != "undefined" ? com : "undefined" ;
+        fs.writeFileSync(thisPath, JSON.stringify(obj,null,2));
+        return obj;
     },
-    processBody: function (data, locals) {
+    one: function(id) {
+        let json = model.findJson(id);
+        return json
+    },
+    processBody: function (data) {
         // Se encarga de procesar el body para la ruleta
-        // return Object.keys(data).map(id => model.one(parseInt(id.split("for")[1]), locals).name);
-        // Nota lulu: Me desafié a hacerlo en una sola línea y al parecer me salió :o
-
-        // Las claves se llaman "statusfor" + id, por ende, solo me interesan las propiedades del objeto que viene
         let ids = Object.keys(data); // Las claves se llaman "statusfor" + id, por ende, solo me interesan las propiedades del objeto que viene
+        ids.shift()
+        let json = model.findJson(data.id).data;
+        let list = json.data;
         let array = [];
-        for (let i = 0; i < ids.length; i++) {
+        ids.forEach((a, i) => {
             let id = parseInt(ids[i].split("for")[1]);
-            let a = model.one(id, locals); // Busco aquellos ids que me hayan llegado y pusheo el nombre correspondiente a mi array
-            //array.push(a.name);
-        }
+            array.push(json.find(al => al.id == id).name);
+        })
+        
+        // Las claves se llaman "statusfor" + id, por ende, solo me interesan las propiedades del objeto que viene
         return array;
     },
 };

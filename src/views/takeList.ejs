@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs") %> 
+    <body>
+        <%- include("./partials/header.ejs") %> 
+        <main>
+            <%- include("./partials/sidebar.ejs") %> 
+            <div id="main-box">
+                
+                <div id="main-div-header">
+                    <h3>Lista</h3>
+                    <form action="/com/<%= locals.data.id %>" method="POST" id="com-form">
+                        <input type="text" name="adjust" id="adjust" placeholder="Asignar comisión..." <% if (locals.data.com != "undefined") { %>value="<%= locals.data.com %>" disabled<% } %> required>
+                        <button type="submit" id="submit"><i class="fa-solid fa-right-to-bracket"></i></button>
+                    </form>
+                    <% if (locals.data.com != "undefined") { %>
+                        <form action="/delcom/<%= locals.data.id %>" method="POST" id="del-com-form">
+                            <button type="submit" id="reset"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    <% } %>
+                </div>
+                <form action="/roulette" id="assists" method="post">
+                    <button type="submit">Armar la ruleta!</button>
+                    <div id="list-items">
+                        <input type="hidden" name="id" value="<%= locals.data.id %>">
+                        <% let data = locals.data.data %> 
+                        <% for( let i = 0; i < data.length; i++ ) { %>
+                            <% let id = data[i].id %> 
+                            <section class="each-a">
+                                <p class="each-name"><%= data[i].name %></p>
+                                <input type="checkbox" class="checkbox" name="statusfor<%= data[i].id %>" id="<%= data[i].id %>" value="active" checked>
+                                <div class="rel-div">
+                                    <label class="neg" for="<%= id %>">No participa</label>
+                                    <label class="aff" for="<%= id %>">Participa</label>
+                                </div>
+                            </section>
+                        <% } %>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,14 +1,11 @@
-body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-h3 {
+main form h3 {
     width: 30vw;
     text-align: center;
 }
 input[type="checkbox"] {
     display: none;
 }
-form {
+form#assists {
     display: flex;
     flex-direction: column;
 }
