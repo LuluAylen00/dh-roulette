@@ -3,7 +3,7 @@ import * as csvToJson from "convert-csv-to-json"; // Requiero mi convertidor de 
 import { cleanse } from "../modules/cleanse"; // Requiero un módulo propio que me ayude a limpiar algunas fallas del convertidor de csv
 const path = require("path");
 const fs = require("fs");
-let folder = path.resolve(__dirname, "../data/");
+let folder = path.resolve(__dirname, "../../src/data/");
 
 const model = {
     fileLister: function(){
@@ -11,11 +11,10 @@ const model = {
         let fileArray = fs.readdirSync(folder).map((file, index) => {
             let obj = {
                 filename: "", // 
-                ext: "",
+                ext: file ? path.extname(file).slice(1) : "",
                 name: file.replace(/\.[^/.]+$/, ""),
                 id: index
             };
-            file ? (obj.ext = path.extname(file).slice(1)) : "";
             if (obj.ext == "csv" || obj.ext == "xls"){
                 obj.filename = file; 
             };
@@ -70,6 +69,7 @@ const model = {
                 const alumno = file.data[i];
                 let item = { 
                     id: i,
+                    wins: 0,
                     name: "" 
                 };
                 if(file.ext == "csv"){
@@ -108,7 +108,7 @@ const model = {
     },
     jsonLister: function(){
         let toSend = [];
-        let fileArray = fs.readdirSync(folder).map((file, index) => {
+        let fileArray = fs.readdirSync(folder+"/json/").map((file, index) => {
             let fileExt : string;
             let filename : string;
             file ? (fileExt = path.extname(file).slice(1)) : "";
@@ -120,7 +120,7 @@ const model = {
         if (fileArray.length > 0) {
             fileArray.forEach((file, index) => {
                 if (file) {
-                    let json = JSON.parse(fs.readFileSync(path.resolve(folder,file)));
+                    let json = JSON.parse(fs.readFileSync(path.resolve(folder,"json",file)));
                     toSend.push(json);
                 };
             });
@@ -135,7 +135,7 @@ const model = {
         let list = model.jsonLister();
         return list.filter(j => j.com.includes(com));
     },
-    saveJson: function(index, com? : string){
+    saveJson: function(index){
         let thisOne = model.findFile(index);
         let newObj = {
             data: thisOne.data,
@@ -143,7 +143,7 @@ const model = {
             com: "undefined",
             name: thisOne.name
         };
-        let thisPath = path.resolve(folder, thisOne.name+".json");
+        let thisPath = path.resolve(folder,"json", thisOne.name+".json");
         if (!fs.existsSync(thisPath)) {
             fs.writeFileSync(thisPath, JSON.stringify(newObj,null,2));
             return newObj;
@@ -171,14 +171,20 @@ const model = {
         }
         return array;
     },
+    writeJson: (obj, id) => {
+        let json = model.findJson(id);
+        let thisPath = path.resolve(folder, "json", json.name+".json");
+        fs.writeFileSync(thisPath, JSON.stringify(obj,null,2));
+        return obj;
+    },
     readJson: (id) => {
         let json = model.findJson(id);
-        let thisPath = path.resolve(folder, json.name+".json");
+        let thisPath = path.resolve(folder, "json", json.name+".json");
         return JSON.parse(fs.readFileSync(thisPath));
     },
     assignCom: (id, com) => {
         let json = model.findJson(id);
-        let thisPath = path.resolve(folder, json.name+".json");
+        let thisPath = path.resolve(folder, "json", json.name+".json");
         let obj = JSON.parse(fs.readFileSync(thisPath));
         obj.com = com != "undefined" ? com : "undefined" ;
         fs.writeFileSync(thisPath, JSON.stringify(obj,null,2));
@@ -186,18 +192,40 @@ const model = {
     },
     one: function(id) {
         let json = model.findJson(id);
-        return json
+        return json;
     },
-    processBody: function (data) {
+    win: function(id, jsonId){
+        let obj = model.readJson(jsonId);
+        let found = false;
+        obj.data.map(a => {
+            if (a.id == id) {
+                a.wins++
+                found = true;
+            }
+        })
+        if (found) {
+            console.log("Tenemos un ganador");
+        } else {
+            console.log("No ha ganado nadie");
+        }
+        console.log("Reiniciando ruleta");
+        model.writeJson(obj, jsonId)
+        return obj        
+    },
+    processBody: function (data, id) {
         // Se encarga de procesar el body para la ruleta
+        if (data.winner) { // Si hay un ganador, viene como primer dato del listado, asique lo elimino y le doy una victoria en su lista
+            model.win(data.winner, id)
+        }
+        delete data.winner
+        let json = model.findJson(id).data; // Busco el json específico para traer la lista de alumnos
         let ids = Object.keys(data); // Las claves se llaman "statusfor" + id, por ende, solo me interesan las propiedades del objeto
-        ids.shift(); // El primer dato es el id del json para buscarlo, lo elimino
-        let json = model.findJson(data.id).data; // Busco el json específico para traer la lista de alumnos
+        
         let array = []; // Acumulador
         ids.forEach((a, i) => {
             // Aquellos id que hayan llegado son los que estarán presentes, por lo que son los que debo buscar en el array de alumnos
             let id = parseInt(ids[i].split("for")[1]);
-            array.push(json.find(al => al.id == id).name);
+            array.push(json.find(al => al.id == id));
         });
         return array;
     },

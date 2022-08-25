@@ -19,22 +19,24 @@ const upload = multer({storage:dest});
 app.get('/', mainController.index);
 
 app.get('/convert', mainController.toConvertList);
-
-app.post('/new', [upload.single('upload')], mainController.uploadTable);
+app.get('/list', mainController.jsonList);
+app.get('/listByCom', mainController.comList);
 
 app.get('/convert/:id', mainController.convertThis);
-
-app.get('/list', mainController.jsonList);
-
 app.get('/view/:id', mainController.jsonDetail);
 
-app.post('/com/:id', mainController.assignCom);
 
+
+app.post('/new', [upload.single('upload')], mainController.uploadTable);
+app.post('/com/:id', mainController.assignCom);
 app.post('/delcom/:id', mainController.unassignCom);
 
-app.post('/roulette', mainController.roulette);
+app.post('/roulette/:id', mainController.roulette);
 
-app.get('/listByCom', mainController.comList);
+
+
+
+
 
 
 

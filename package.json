@@ -4,9 +4,9 @@
   "description": "Proyecto de prueba para convertir un .csv en json y enviarlo a una ruleta para dinámicas en el aula",
   "main": "index.ts",
   "scripts": {
-    "test": "nodemon src/index.js -e js,mjs,json,ejs,css,ts",
-    "start": "node src/index.ts",
-    "tsc:w": "tsc -w"
+    "tsc": "tsc -w",
+    "test": "nodemon build/index.js -e js,mjs,json,ejs,css,ts",
+    "start": "node build/index.js"
   },
   "repository": {
     "type": "git",

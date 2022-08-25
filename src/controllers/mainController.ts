@@ -2,15 +2,15 @@ import {model} from "../models/mainModel";
 
 let mainController = {
     index: (req, res) => {
-        res.render('homepage')
+        res.render('homepage');
     },
     toConvertList: (req, res) => { 
         let files = model.fileLister();
-        res.render('toConvert', { files })
+        res.render('toConvert', { files });
     },
     uploadTable: (req, res) => {
         console.log("Fichero", req.file.filename, "subido");
-        res.redirect('/convert')
+        res.redirect('/convert');
     },
     convertThis: (req, res) => {
         let id = req.params.id;
@@ -20,14 +20,14 @@ let mainController = {
     jsonList: (req, res) => {
         let json = model.jsonLister();
         if (json.length > 0) {
-            res.render('jsonList', { data: json })
+            res.render('jsonList', { data: json });
         } else {
             res.send("No hay documentos JSON");
         }
     },
     jsonDetail: (req, res) => {
         let data = model.readJson(req.params.id);
-        return res.render("takeList", { data });
+        return res.render("takeList", { data, com: req.params.id });
     },
     assignCom: (req, res) => {
         let data = model.readJson(req.params.id);
@@ -40,9 +40,9 @@ let mainController = {
         return res.redirect('/view/'+req.params.id);
     },
     roulette: function(req, res) {
-        let data = model.processBody(req.body); // Recibo el dato de los participantes de la ruleta y los guardo
+        let data = model.processBody(req.body, req.params.id); // Recibo el dato de los participantes de la ruleta y los guardo
         data = model.shuffle(data); // Los mezclo
-        return res.render("roulette", { myData: data }); // Y renderizo la ruleta, la cual posee otra función que da aleatoriedad al listado
+        return res.render("roulette", { myData: data, com: req.params.id }); // Y renderizo la ruleta, la cual posee otra función que da aleatoriedad al listado
     },
     comList: function(req, res){
         let json = model.jsonLister();

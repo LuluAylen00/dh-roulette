@@ -16,7 +16,7 @@ const publicPath = resolve(__dirname, '../public');
 const staticPath = express.static(publicPath);
 app.use(staticPath);
 
-app.set ('views', resolve(__dirname, 'views'));
+app.set ('views', resolve(__dirname, '../src/views'));
 app.set("view engine", "ejs");
 
 import {indexRoutes} from "./routes/indexRoutes"

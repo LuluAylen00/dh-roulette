@@ -19,10 +19,9 @@
                         </form>
                     <% } %>
                 </div>
-                <form action="/roulette" id="assists" method="post">
+                <form action="/roulette/<%= locals.data.id %>" id="assists" method="post">
                     <button type="submit">Armar la ruleta!</button>
                     <div id="list-items">
-                        <input type="hidden" name="id" value="<%= locals.data.id %>">
                         <% let data = locals.data.data %> 
                         <% for( let i = 0; i < data.length; i++ ) { %>
                             <% let id = data[i].id %> 
