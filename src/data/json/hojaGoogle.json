@@ -3,75 +3,90 @@
     {
       "id": 0,
       "wins": 0,
-      "name": "Cosme Fulanito"
+      "name": "Cosme Fulanito",
+      "group": "1"
     },
     {
       "id": 1,
       "wins": 0,
-      "name": "Jeffrey Albertson"
+      "name": "Jeffrey Albertson",
+      "group": "2"
     },
     {
       "id": 2,
-      "wins": 2,
-      "name": "Arnie Pye"
+      "wins": 0,
+      "name": "Arnie Pye",
+      "group": "3"
     },
     {
       "id": 3,
       "wins": 0,
-      "name": "Kearney Zzyzwicz"
+      "name": "Kearney Zzyzwicz",
+      "group": "4"
     },
     {
       "id": 4,
       "wins": 0,
-      "name": "Frederick Quimby"
+      "name": "Frederick Quimby",
+      "group": "1"
     },
     {
       "id": 5,
       "wins": 0,
-      "name": "Cosine Tangent"
+      "name": "Cosine Tangent",
+      "group": "2"
     },
     {
       "id": 6,
       "wins": 0,
-      "name": "Lewis Clark"
+      "name": "Lewis Clark",
+      "group": "3"
     },
     {
       "id": 7,
-      "wins": 1,
-      "name": "Eleanor Abernathy"
+      "wins": 0,
+      "name": "Eleanor Abernathy",
+      "group": "4"
     },
     {
       "id": 8,
       "wins": 0,
-      "name": "Wendell Borton"
+      "name": "Wendell Borton",
+      "group": "1"
     },
     {
       "id": 9,
       "wins": 0,
-      "name": "Clarence Bouvier"
+      "name": "Clarence Bouvier",
+      "group": "2"
     },
     {
       "id": 10,
       "wins": 0,
-      "name": "Doris Freedman"
+      "name": "Doris Freedman",
+      "group": "3"
     },
     {
       "id": 11,
       "wins": 0,
-      "name": "William McLavel"
+      "name": "William McLavel",
+      "group": "4"
     },
     {
       "id": 12,
-      "wins": 4,
-      "name": "Jeremy Freedman"
+      "wins": 0,
+      "name": "Jeremy Freedman",
+      "group": "1"
     },
     {
       "id": 13,
       "wins": 0,
-      "name": "Horatio McAllister"
+      "name": "Horatio McAllister",
+      "group": "2"
     }
   ],
-  "id": 1,
-  "com": "undefined",
-  "name": "hojaGoogle"
+  "ext": "csv",
+  "id": 0,
+  "name": "hojaGoogle",
+  "com": "undefined"
 }

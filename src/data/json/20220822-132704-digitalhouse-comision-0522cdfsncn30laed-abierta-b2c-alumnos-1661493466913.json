@@ -1,0 +1,283 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "wins": 0,
+      "name": "Franco Acosta"
+    },
+    {
+      "id": 1,
+      "wins": 0,
+      "name": "Federico Antonutti"
+    },
+    {
+      "id": 2,
+      "wins": 0,
+      "name": "Enzo Barosi"
+    },
+    {
+      "id": 3,
+      "wins": 0,
+      "name": "Maria Barrios"
+    },
+    {
+      "id": 4,
+      "wins": 0,
+      "name": "Joaquin Benitez"
+    },
+    {
+      "id": 5,
+      "wins": 0,
+      "name": "Mariano Berrios"
+    },
+    {
+      "id": 6,
+      "wins": 0,
+      "name": "Valentina Borras"
+    },
+    {
+      "id": 7,
+      "wins": 0,
+      "name": "Mateo Brena"
+    },
+    {
+      "id": 8,
+      "wins": 0,
+      "name": "Axel Caceres"
+    },
+    {
+      "id": 9,
+      "wins": 0,
+      "name": "Ivan Caceres"
+    },
+    {
+      "id": 10,
+      "wins": 0,
+      "name": "Lucia Caffaro"
+    },
+    {
+      "id": 11,
+      "wins": 0,
+      "name": "Gonzalo Calvimonte"
+    },
+    {
+      "id": 12,
+      "wins": 0,
+      "name": "Juan Centeno"
+    },
+    {
+      "id": 13,
+      "wins": 0,
+      "name": "Oliver Charry"
+    },
+    {
+      "id": 14,
+      "wins": 0,
+      "name": "Nicolás Cilio"
+    },
+    {
+      "id": 15,
+      "wins": 0,
+      "name": "Heredia Claudio"
+    },
+    {
+      "id": 16,
+      "wins": 0,
+      "name": "Jose Corral"
+    },
+    {
+      "id": 17,
+      "wins": 0,
+      "name": "Brandon Cortes"
+    },
+    {
+      "id": 18,
+      "wins": 0,
+      "name": "Emilse Diaz"
+    },
+    {
+      "id": 19,
+      "wins": 0,
+      "name": "Mauricio Duch"
+    },
+    {
+      "id": 20,
+      "wins": 0,
+      "name": "Matias Dure"
+    },
+    {
+      "id": 21,
+      "wins": 0,
+      "name": "Trinidad Echevarría"
+    },
+    {
+      "id": 22,
+      "wins": 0,
+      "name": "Mateo Garuti"
+    },
+    {
+      "id": 23,
+      "wins": 0,
+      "name": "Ignacio Ipiñazar"
+    },
+    {
+      "id": 24,
+      "wins": 0,
+      "name": "John Iriondo"
+    },
+    {
+      "id": 25,
+      "wins": 0,
+      "name": "Jeremias Jeremias"
+    },
+    {
+      "id": 26,
+      "wins": 0,
+      "name": "Jonathan Kechian"
+    },
+    {
+      "id": 27,
+      "wins": 0,
+      "name": "Tomas Laborde"
+    },
+    {
+      "id": 28,
+      "wins": 0,
+      "name": "Julian Lapido"
+    },
+    {
+      "id": 29,
+      "wins": 0,
+      "name": "Juan Maneffa"
+    },
+    {
+      "id": 30,
+      "wins": 0,
+      "name": "Facundo Maseras"
+    },
+    {
+      "id": 31,
+      "wins": 0,
+      "name": "Esteban Molina"
+    },
+    {
+      "id": 32,
+      "wins": 0,
+      "name": "Marcia Montoya"
+    },
+    {
+      "id": 33,
+      "wins": 0,
+      "name": "Lucas Morinigo"
+    },
+    {
+      "id": 34,
+      "wins": 0,
+      "name": "Facundo Muller"
+    },
+    {
+      "id": 35,
+      "wins": 0,
+      "name": "Ulises Octavio"
+    },
+    {
+      "id": 36,
+      "wins": 0,
+      "name": "Lucas Ojeda"
+    },
+    {
+      "id": 37,
+      "wins": 0,
+      "name": "Juan Oliva"
+    },
+    {
+      "id": 38,
+      "wins": 0,
+      "name": "Nicolle Oporto"
+    },
+    {
+      "id": 39,
+      "wins": 0,
+      "name": "Alexia Ortega"
+    },
+    {
+      "id": 40,
+      "wins": 0,
+      "name": "Francisco Peretto"
+    },
+    {
+      "id": 41,
+      "wins": 0,
+      "name": "Juan Pizzorno"
+    },
+    {
+      "id": 42,
+      "wins": 0,
+      "name": "Federico Raimondo"
+    },
+    {
+      "id": 43,
+      "wins": 0,
+      "name": "Sergio Ramirez"
+    },
+    {
+      "id": 44,
+      "wins": 0,
+      "name": "Tadeo Reynal"
+    },
+    {
+      "id": 45,
+      "wins": 0,
+      "name": "Julian Rivera"
+    },
+    {
+      "id": 46,
+      "wins": 0,
+      "name": "Willian Rodrigues"
+    },
+    {
+      "id": 47,
+      "wins": 0,
+      "name": "Juan Romano"
+    },
+    {
+      "id": 48,
+      "wins": 0,
+      "name": "Alejandro Sanz"
+    },
+    {
+      "id": 49,
+      "wins": 0,
+      "name": "Franco Seccaspina"
+    },
+    {
+      "id": 50,
+      "wins": 0,
+      "name": "Felipe Tanoira"
+    },
+    {
+      "id": 51,
+      "wins": 0,
+      "name": "Lisandro Tasende"
+    },
+    {
+      "id": 52,
+      "wins": 0,
+      "name": "Matías Tolosa"
+    },
+    {
+      "id": 53,
+      "wins": 0,
+      "name": "Mauricio Lischetti"
+    },
+    {
+      "id": 54,
+      "wins": 0,
+      "name": "José Quintero"
+    }
+  ],
+  "ext": "xls",
+  "id": 6,
+  "name": "20220822-132704-digitalhouse-comision-0522cdfsncn30laed-abierta-b2c-alumnos-1661493466913",
+  "com": "0522CDFSNCN30LAED"
+}

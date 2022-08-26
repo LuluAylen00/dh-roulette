@@ -5,17 +5,22 @@ let mainController = {
         res.render('homepage');
     },
     toConvertList: (req, res) => { 
-        let files = model.fileLister();
+        let files = model.tableLister();
         res.render('toConvert', { files });
     },
     uploadTable: (req, res) => {
-        console.log("Fichero", req.file.filename, "subido");
+        console.log("Fichero", req.file.originalname, "subido");        
         res.redirect('/convert');
     },
     convertThis: (req, res) => {
-        let id = req.params.id;
-        let thisOne = model.saveJson(id);
-        res.redirect('/list');
+        let result = model.allToJson();
+        
+        if(result.status){
+            return res.redirect('/list');
+        } else {
+            let data = model.readJson(result.data.shift().id);
+            return res.render("takeList", { data });
+        }
     },
     jsonList: (req, res) => {
         let json = model.jsonLister();

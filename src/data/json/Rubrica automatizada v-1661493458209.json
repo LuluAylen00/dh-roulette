@@ -1,0 +1,314 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "wins": 0,
+      "name": "Alejandro Sanz",
+      "group": "4"
+    },
+    {
+      "id": 1,
+      "wins": 0,
+      "name": "Alexia ORTEGA",
+      "group": "1"
+    },
+    {
+      "id": 2,
+      "wins": 0,
+      "name": "Axel Caceres",
+      "group": "14"
+    },
+    {
+      "id": 3,
+      "wins": 0,
+      "name": "Emilse Diaz",
+      "group": "11"
+    },
+    {
+      "id": 4,
+      "wins": 0,
+      "name": "Enzo Barosi",
+      "group": "1"
+    },
+    {
+      "id": 5,
+      "wins": 0,
+      "name": "Esteban Molina",
+      "group": "12"
+    },
+    {
+      "id": 6,
+      "wins": 0,
+      "name": "Facundo Maseras",
+      "group": "14"
+    },
+    {
+      "id": 7,
+      "wins": 0,
+      "name": "Facundo Muller",
+      "group": "14"
+    },
+    {
+      "id": 8,
+      "wins": 0,
+      "name": "Federico Antonutti",
+      "group": "11"
+    },
+    {
+      "id": 9,
+      "wins": 0,
+      "name": "Federico Raimondo",
+      "group": "5"
+    },
+    {
+      "id": 10,
+      "wins": 0,
+      "name": "Felipe Tanoira",
+      "group": "1"
+    },
+    {
+      "id": 11,
+      "wins": 0,
+      "name": "Francisco Peretto",
+      "group": "5"
+    },
+    {
+      "id": 12,
+      "wins": 0,
+      "name": "Franco Acosta",
+      "group": "2"
+    },
+    {
+      "id": 13,
+      "wins": 0,
+      "name": "Franco Seccaspina",
+      "group": "13"
+    },
+    {
+      "id": 14,
+      "wins": 0,
+      "name": "Gonzalo Calvimonte",
+      "group": "2"
+    },
+    {
+      "id": 15,
+      "wins": 0,
+      "name": "Heredia Martin",
+      "group": "4"
+    },
+    {
+      "id": 16,
+      "wins": 0,
+      "name": "Ignacio Ipiñazar",
+      "group": "14"
+    },
+    {
+      "id": 17,
+      "wins": 0,
+      "name": "Ivan Caceres",
+      "group": "5"
+    },
+    {
+      "id": 18,
+      "wins": 0,
+      "name": "Jeremias Rombolá",
+      "group": "11"
+    },
+    {
+      "id": 19,
+      "wins": 0,
+      "name": "Joaquin Benitez",
+      "group": "12"
+    },
+    {
+      "id": 20,
+      "wins": 0,
+      "name": "John Iriondo",
+      "group": "1"
+    },
+    {
+      "id": 21,
+      "wins": 0,
+      "name": "Jonathan Kechian",
+      "group": "3"
+    },
+    {
+      "id": 22,
+      "wins": 0,
+      "name": "José Quintero",
+      "group": "4"
+    },
+    {
+      "id": 23,
+      "wins": 0,
+      "name": "Juan Oliva",
+      "group": "7"
+    },
+    {
+      "id": 24,
+      "wins": 0,
+      "name": "Juan Centeno",
+      "group": "13"
+    },
+    {
+      "id": 25,
+      "wins": 0,
+      "name": "Juan Maneffa",
+      "group": "5"
+    },
+    {
+      "id": 26,
+      "wins": 0,
+      "name": "Juan Pizzorno",
+      "group": "8"
+    },
+    {
+      "id": 27,
+      "wins": 0,
+      "name": "Julian Lapido",
+      "group": "2"
+    },
+    {
+      "id": 28,
+      "wins": 0,
+      "name": "Lisandro Tasende",
+      "group": "2"
+    },
+    {
+      "id": 29,
+      "wins": 0,
+      "name": "Lucas Ezequiel",
+      "group": "13"
+    },
+    {
+      "id": 30,
+      "wins": 0,
+      "name": "Lucas Morinigo",
+      "group": "11"
+    },
+    {
+      "id": 31,
+      "wins": 0,
+      "name": "Lucia Caffaro",
+      "group": "3"
+    },
+    {
+      "id": 32,
+      "wins": 0,
+      "name": "Marcia Montoya",
+      "group": "13"
+    },
+    {
+      "id": 33,
+      "wins": 0,
+      "name": "Maria Barrios",
+      "group": "8"
+    },
+    {
+      "id": 34,
+      "wins": 0,
+      "name": "Mariano Cruz",
+      "group": "7"
+    },
+    {
+      "id": 35,
+      "wins": 0,
+      "name": "Mateo Garuti",
+      "group": "3"
+    },
+    {
+      "id": 36,
+      "wins": 0,
+      "name": "Mateo Brena",
+      "group": "11"
+    },
+    {
+      "id": 37,
+      "wins": 0,
+      "name": "Matias Dure",
+      "group": "8"
+    },
+    {
+      "id": 38,
+      "wins": 0,
+      "name": "Matías Tolosa",
+      "group": "2"
+    },
+    {
+      "id": 39,
+      "wins": 0,
+      "name": "Mauricio Duch",
+      "group": "11"
+    },
+    {
+      "id": 40,
+      "wins": 0,
+      "name": "Mauricio Lischetti",
+      "group": "7"
+    },
+    {
+      "id": 41,
+      "wins": 0,
+      "name": "Nicolás Cilio",
+      "group": "8"
+    },
+    {
+      "id": 42,
+      "wins": 0,
+      "name": "Nicolle Oporto",
+      "group": "14"
+    },
+    {
+      "id": 43,
+      "wins": 0,
+      "name": "OLIVER BEANVIDES",
+      "group": "4"
+    },
+    {
+      "id": 44,
+      "wins": 0,
+      "name": "Sergio Ramirez",
+      "group": "12"
+    },
+    {
+      "id": 45,
+      "wins": 0,
+      "name": "Tadeo Reynal",
+      "group": "12"
+    },
+    {
+      "id": 46,
+      "wins": 0,
+      "name": "Tomas Laborde",
+      "group": "13"
+    },
+    {
+      "id": 47,
+      "wins": 0,
+      "name": "Trinidad Echevarría",
+      "group": "3"
+    },
+    {
+      "id": 48,
+      "wins": 0,
+      "name": "Ulises Magnarelli",
+      "group": "3"
+    },
+    {
+      "id": 49,
+      "wins": 0,
+      "name": "Valentina Borras",
+      "group": "12"
+    },
+    {
+      "id": 50,
+      "wins": 0,
+      "name": "Willian da",
+      "group": "7"
+    }
+  ],
+  "ext": "csv",
+  "id": 5,
+  "name": "Rubrica automatizada v-1661493458209",
+  "com": "undefined"
+}

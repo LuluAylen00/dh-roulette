@@ -1,0 +1,78 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "wins": 0,
+      "name": "Cosme Fulanito"
+    },
+    {
+      "id": 1,
+      "wins": 0,
+      "name": "Jeffrey Albertson"
+    },
+    {
+      "id": 2,
+      "wins": 0,
+      "name": "Arnie Pye"
+    },
+    {
+      "id": 3,
+      "wins": 0,
+      "name": "Kearney Zzyzwicz"
+    },
+    {
+      "id": 4,
+      "wins": 0,
+      "name": "Frederick Quimby"
+    },
+    {
+      "id": 5,
+      "wins": 0,
+      "name": "Cosine Tangent"
+    },
+    {
+      "id": 6,
+      "wins": 0,
+      "name": "Lewis Clark"
+    },
+    {
+      "id": 7,
+      "wins": 0,
+      "name": "Eleanor Abernathy"
+    },
+    {
+      "id": 8,
+      "wins": 0,
+      "name": "Wendell Borton"
+    },
+    {
+      "id": 9,
+      "wins": 0,
+      "name": "Clarence Bouvier"
+    },
+    {
+      "id": 10,
+      "wins": 0,
+      "name": "Doris Freedman"
+    },
+    {
+      "id": 11,
+      "wins": 0,
+      "name": "William McLavel"
+    },
+    {
+      "id": 12,
+      "wins": 0,
+      "name": "Jeremy Freedman"
+    },
+    {
+      "id": 13,
+      "wins": 0,
+      "name": "Horatio McAllister"
+    }
+  ],
+  "ext": "xls",
+  "id": 1,
+  "name": "hojaSge",
+  "com": "undefined"
+}
